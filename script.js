@@ -46,7 +46,11 @@ const BANNED_WORDS = [
   'วัตถุโบราณ',
   'ชู้',
   'กิ๊ก',
-  'ซ้อมแฟน',
+  'ซ้อม',
+  'ตี' ,
+  'ตบ' ,
+  'ต่อย' ,
+  'รุนแรง' ,
 ].map(normalize);
 
 function isBanned(text) {
@@ -291,6 +295,7 @@ const FEAR_KEYS = [
   'ผี',
   'แฟนทิ้ง', 'เมียทิ้ง', 'โฟกัสทิ้ง', 'เด่กทิ้ง',
   'เมีย',
+  'แฟน' ,
 ].map(normalize);
 
 $('btn-q3').addEventListener('click', () => {
