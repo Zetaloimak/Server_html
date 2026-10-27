@@ -73,8 +73,8 @@ function updateCounter() {
   counterEl.textContent = `ตอบผิด ${wrongCount}/${MAX_WRONG} ครั้ง`;
 }
 
-// ===== ตรวจวันที่ =====
-// รองรับ 17/08/12, 17-8-2012, 17.08.12 และรูปแบบ 2012-08-17 ของ input type="date"
+// ===== ตรวจวันที่ (วัน/เดือน ไม่ต้องใส่ปี) =====
+// รองรับ 17/08, 17-8, 17.08 และ 17 8
 function parseDate(text) {
   const t = toArabicDigits(text.trim());
 
@@ -236,7 +236,7 @@ $('btn-q1').addEventListener('click', () => {
     clearMsg('msg-q1');
     showStep('step-q2');
   } else {
-    markWrong('msg-q1', 'ลองอีกทีค้าบบบ');
+    markWrong('msg-q1', 'ลองอีกทีค้าบบ');
   }
 });
 
