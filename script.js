@@ -78,29 +78,26 @@ function updateCounter() {
 function parseDate(text) {
   const t = toArabicDigits(text.trim());
 
-  const iso = t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-  if (iso) return { day: +iso[3], month: +iso[2], year: +iso[1] % 100 };
-
   const parts = t.split(/[\/\-.\s]+/);
-  if (parts.length !== 3 || parts.some((p) => p === '')) return null;
+  if (parts.length !== 2 || parts.some((p) => p === '')) return null;
 
   const nums = parts.map(Number);
   if (nums.some((n) => !Number.isInteger(n))) return null;
 
-  const [day, month, year] = nums;
-  return { day, month, year: year % 100 };
+  const [day, month] = nums;
+  return { day, month };
 }
 
-// วันเกิด 17/08/12
+// วันเกิด 17/08
 function isBirthdayCorrect(text) {
   const d = parseDate(text);
-  return !!d && d.day === 17 && d.month === 8 && d.year === 12;
+  return !!d && d.day === 17 && d.month === 8;
 }
 
-// วันครบรอบ 13/03/26 หรือ 14/03/26
+// วันครบรอบ 13/03 หรือ 14/03
 function isAnniversaryCorrect(text) {
   const d = parseDate(text);
-  return !!d && (d.day === 13 || d.day === 14) && d.month === 3 && d.year === 26;
+  return !!d && (d.day === 13 || d.day === 14) && d.month === 3;
 }
 
 // ===== ข้อความใต้ช่องคำตอบ =====
