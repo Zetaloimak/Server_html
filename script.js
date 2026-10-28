@@ -221,7 +221,7 @@ $('btn-date').addEventListener('click', () => {
 });
 
 // ===== ขั้นที่ 3: เค้าชอบกินอะไร =====
-const FOOD_KEYS = ['เย็นตาโฟ', 'เมีย'].map(normalize);
+const FOOD_KEYS = ['เย็นตาโฟ', 'เมีย', 'แฟน', 'เด่ก'].map(normalize);
 
 $('btn-q1').addEventListener('click', () => {
   const raw = $('food').value;
