@@ -47,10 +47,10 @@ const BANNED_WORDS = [
   'ชู้',
   'กิ๊ก',
   'ซ้อม',
-  'ตี' ,
-  'ตบ' ,
-  'ต่อย' ,
-  'รุนแรง' ,
+  'ตี',
+  'ตบ',
+  'ต่อย',
+  'รุนแรง',
 ].map(normalize);
 
 function isBanned(text) {
@@ -171,6 +171,11 @@ const btnNo = $('btn-no');
 const sadMsg = $('sad-msg');
 const btnSure = $('btn-sure');
 
+// หัวข้อหน้าแรก และข้อความที่จะมาแทนหัวข้อเมื่อกด "ม่ายอ่ะะ" จนเล็กสุด
+const loveTitle = document.querySelector('#step-love h1');
+const LOVE_TITLE_ORIGINAL = loveTitle.textContent;
+const LOVE_TITLE_SAD = 'ม่ายร้ากกานแย้วหยออ🥺';
+
 const NO_START = 20; // ขนาดฟอนต์เริ่มต้นของปุ่ม "ไม่รัก" (px)
 const NO_MIN = 10; // ขนาดที่เล็กที่สุด (px)
 const NO_STEP = 2; // ลดทีละกี่ px ต่อการกด
@@ -190,10 +195,9 @@ btnNo.addEventListener('click', () => {
     return;
   }
 
-  // เล็กที่สุดแล้ว ซ่อนปุ่มและแสดงข้อความ
+  // เล็กที่สุดแล้ว ซ่อนปุ่ม เปลี่ยนหัวข้อเป็นข้อความเศร้า และแสดงปุ่ม "ช่าย"
   btnNo.classList.add('hidden');
-  sadMsg.textContent = 'ม่ายร้ากกานแย้วหยออ🥺';
-  sadMsg.classList.add('show');
+  loveTitle.textContent = LOVE_TITLE_SAD;
   btnSure.classList.remove('hidden');
 });
 
@@ -260,7 +264,7 @@ const HOBBY_KEYS = [
   'เมีย',
   'ทำคอม',
   'ซ้อมคอม',
-  'คอม' ,
+  'คอม',
 ].map(normalize);
 
 $('btn-q2').addEventListener('click', () => {
@@ -294,12 +298,12 @@ const FEAR_KEYS = [
   'มด',
   'ปมด้อย',
   'ผี',
-  'แฟนทิ้ง', 
-  'เมียทิ้ง', 
-  'โฟกัสทิ้ง', 
+  'แฟนทิ้ง',
+  'เมียทิ้ง',
+  'โฟกัสทิ้ง',
   'เด่กทิ้ง',
   'เมีย',
-  'แฟน' ,
+  'แฟน',
   'เด่ก',
 ].map(normalize);
 
@@ -377,7 +381,7 @@ $('btn-love-back').addEventListener('click', () => {
   }
 });
 
-// ===== ทางเลือก "ช่าย" → หน้าง้อ 100 ครั้ง → ร้ากหม้าย → หายงอน =====
+// ===== ทางเลือก "ช่าย" → หน้าง้อ 100 ครั้ง → ไม่ร้ากกานแล้วหรอ → หายงอน =====
 const NGO_TARGET = 100; // ต้องง้อให้ครบจำนวนนี้
 let ngoTaps = 0;
 
@@ -422,6 +426,7 @@ function resetAll() {
   btnNo.style.fontSize = '';
   btnNo.classList.remove('hidden');
   btnYes.style.transform = '';
+  loveTitle.textContent = LOVE_TITLE_ORIGINAL;
 
   sadMsg.textContent = '';
   sadMsg.classList.remove('show');
