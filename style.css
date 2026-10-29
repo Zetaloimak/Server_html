@@ -44,13 +44,24 @@ body {
   position: absolute;
   bottom: -40px;
   opacity: 0.85;
-  animation: float-up linear forwards;
+  animation: float-up linear forwards, sway 3s ease-in-out infinite;
 }
 
 @keyframes float-up {
   to {
     transform: translateY(-110vh) rotate(360deg);
     opacity: 0;
+  }
+}
+
+/* หัวใจแกว่งซ้ายขวาระหว่างลอยขึ้น (ใช้ translate แยกจาก transform ของ float-up) */
+@keyframes sway {
+  0%,
+  100% {
+    translate: -14px 0;
+  }
+  50% {
+    translate: 14px 0;
   }
 }
 
@@ -287,6 +298,168 @@ label {
   font-weight: 600;
 }
 
+/* ===== อนิเมชันเพิ่มเติม ===== */
+
+/* หัวข้อหน้าแรกลอยขึ้นลงเบาๆ */
+#step-love h1 {
+  animation: title-float 3s ease-in-out infinite;
+  transition: color 0.4s ease;
+}
+
+@keyframes title-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* เมื่อปุ่ม "ม่ายอ่ะะ" เล็กจนหาย หัวข้อเปลี่ยนเป็นสีเศร้าและสั่นหนึ่งครั้ง */
+#step-love:has(#btn-no.hidden) h1 {
+  color: #9b3562;
+  animation: shake 0.5s ease;
+}
+
+/* ไอคอนหัวใจเต้นเป็นจังหวะ */
+#step-love .emoji,
+#step-final .emoji,
+#step-ask .emoji {
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.15);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(1);
+  }
+}
+
+/* ปุ่มหน้าแรก "ร้ากกก" กับ "ช่าย" ขนาดเท่ากัน */
+#btn-yes,
+#btn-sure {
+  font-size: 20px;
+  min-width: 170px;
+  height: 56px;
+  padding: 0 32px;
+  margin-top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ปุ่มช่ายเด้งออกมาตอนปรากฏ แล้วเรืองแสงต่อ */
+#btn-sure {
+  animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards,
+    glow-pulse 2s ease-in-out 0.5s infinite;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 10px 22px rgba(255, 92, 152, 0.35);
+  }
+  50% {
+    box-shadow: 0 10px 34px rgba(255, 92, 152, 0.7);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* เอาเมาส์ชี้ที่ปุ่ม "ม่ายอ่ะะ" ปุ่มจะโยกเล็กน้อย */
+.btn-no:hover {
+  animation: no-wiggle 0.4s ease;
+}
+
+@keyframes no-wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+/* หน้าง้อ: ไอคอนโยกไปมา */
+#step-ngo .emoji {
+  animation: wobble 1.5s ease-in-out infinite;
+}
+
+/* หน้าแพ้: หัวข้อสั่น */
+#step-fail h2 {
+  animation: shake 0.6s ease;
+}
+
+/* หน้าหายงอน: ไอคอนกระโดดฉลอง */
+#step-forgiven .emoji {
+  animation: tada 1s ease 1;
+}
+
+@keyframes tada {
+  0% {
+    transform: scale(1);
+  }
+  10%,
+  20% {
+    transform: scale(0.9) rotate(-6deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale(1.15) rotate(6deg);
+  }
+  40%,
+  60%,
+  80% {
+    transform: scale(1.15) rotate(-6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
 /* ===== ตัวนับผิด ===== */
 .counter {
   position: fixed;
@@ -337,7 +510,7 @@ label {
   pointer-events: none;
 }
 
-/* ผู้ที่ตั้งค่าลดการเคลื่อนไหว จะไม่เห็นหัวใจลอย */
+/* ผู้ที่ตั้งค่าลดการเคลื่อนไหว จะไม่เห็นหัวใจลอยและอนิเมชันเพิ่มเติม */
 @media (prefers-reduced-motion: reduce) {
   #hearts {
     display: none;
@@ -345,7 +518,24 @@ label {
 
   .emoji,
   .step.active,
-  .msg.shake {
+  .msg.shake,
+  #step-love h1,
+  #step-love .emoji,
+  #step-final .emoji,
+  #step-ask .emoji,
+  #step-ngo .emoji,
+  #step-fail h2,
+  #step-forgiven .emoji,
+  #btn-yes,
+  #btn-sure,
+  .btn-no:hover {
+    animation: none;
+  }
+}
+
+/* เบราว์เซอร์ที่ไม่รองรับ :has() จะข้ามกฎนี้ไป ไม่กระทบส่วนอื่น */
+@media (prefers-reduced-motion: reduce) {
+  #step-love:has(#btn-no.hidden) h1 {
     animation: none;
   }
 }
