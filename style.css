@@ -322,13 +322,6 @@ label {
   animation: shake 0.5s ease;
 }
 
-/* ไอคอนหัวใจเต้นเป็นจังหวะ */
-#step-love .emoji,
-#step-final .emoji,
-#step-ask .emoji {
-  animation: heartbeat 1.6s ease-in-out infinite;
-}
-
 @keyframes heartbeat {
   0%,
   100% {
@@ -355,7 +348,7 @@ label {
   min-width: 170px;
   height: 56px;
   padding: 0 32px;
-  margin-top: 0;
+  margin-top: 10;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -421,19 +414,9 @@ label {
   }
 }
 
-/* หน้าง้อ: ไอคอนโยกไปมา */
-#step-ngo .emoji {
-  animation: wobble 1.5s ease-in-out infinite;
-}
-
 /* หน้าแพ้: หัวข้อสั่น */
 #step-fail h2 {
   animation: shake 0.6s ease;
-}
-
-/* หน้าหายงอน: ไอคอนกระโดดฉลอง */
-#step-forgiven .emoji {
-  animation: tada 1s ease 1;
 }
 
 @keyframes tada {
@@ -493,6 +476,12 @@ label {
   border-radius: 999px;
   box-shadow: 0 4px 12px rgba(255, 92, 152, 0.18);
   pointer-events: none;
+}
+
+#step-love .emoji,
+#step-final .emoji,
+#step-ask .emoji {
+  animation: heartbeat 1.6s ease-in-out infinite;
 }
 
 .open {
